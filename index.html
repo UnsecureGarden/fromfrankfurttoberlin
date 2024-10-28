@@ -13,7 +13,9 @@
         <p>I truly hope this interaction is not too intrusive or upfront, and of course won’t be offended in any way if you refuse, but I’ll be in Berlin for a week and would love to hang some time :)</p>
         <p>Here is a song I just made in the train, forgive the noise.</p>
         <p>In any ways it was fun for me to do such, and it’ll be a fun story to tell for you and me whatever the outcome</p>
+        
         <a href="https://www.instagram.com/elielie_z/" class="highlight" target="_blank">insta</a>
+        <p>or email address: <a href="mailto:elie.zylberman@gmail.com">elie.zylberman@gmail.com</a></p>
 
         <div class="comments-section">
             <h2>Comments</h2>
@@ -22,6 +24,30 @@
             <ul id="comments-list"></ul>
         </div>
     </div>
-    <script src="script.js"></script>
+    <script>
+        // Fonction pour ajouter un commentaire
+        function addComment() {
+            const commentInput = document.getElementById("comment-input");
+            const commentsList = document.getElementById("comments-list");
+            
+            if (commentInput.value.trim() === "") return; // Ne rien faire si le champ est vide
+
+            const commentItem = document.createElement("li");
+            commentItem.classList.add("comment-item");
+            commentItem.textContent = commentInput.value;
+
+            const deleteButton = document.createElement("button");
+            deleteButton.textContent = "Delete";
+            deleteButton.classList.add("delete-button");
+            deleteButton.onclick = function() {
+                commentsList.removeChild(commentItem);
+            };
+
+            commentItem.appendChild(deleteButton);
+            commentsList.appendChild(commentItem);
+
+            commentInput.value = ""; // Vider le champ de saisie après ajout
+        }
+    </script>
 </body>
 </html>
