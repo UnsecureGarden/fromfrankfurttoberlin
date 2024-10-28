@@ -1,45 +1,26 @@
-{\rtf1\ansi\ansicpg1252\cocoartf2706
-\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
-{\colortbl;\red255\green255\blue255;}
-{\*\expandedcolortbl;;}
-\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
-\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+// Fonction pour ajouter un commentaire
+function addComment() {
+    const commentInput = document.getElementById("comment-input");
+    const commentsList = document.getElementById("comments-list");
+    
+    // Vérifie si le champ de commentaire est vide
+    if (commentInput.value.trim() === "") return;
 
-\f0\fs24 \cf0 const commentsList = document.getElementById("comments-list");\
-const commentInput = document.getElementById("comment-input");\
-\
-// Charger les commentaires depuis le stockage local\
-function loadComments() \{\
-    const comments = JSON.parse(localStorage.getItem("comments")) || [];\
-    commentsList.innerHTML = '';\
-    comments.forEach((comment, index) => \{\
-        const commentItem = document.createElement("li");\
-        commentItem.classList.add("comment-item");\
-        commentItem.innerHTML = `$\{comment\} <button class="delete-button" onclick="deleteComment($\{index\})">Delete</button>`;\
-        commentsList.appendChild(commentItem);\
-    \});\
-\}\
-\
-// Ajouter un commentaire\
-function addComment() \{\
-    const comment = commentInput.value.trim();\
-    if (comment) \{\
-        const comments = JSON.parse(localStorage.getItem("comments")) || [];\
-        comments.push(comment);\
-        localStorage.setItem("comments", JSON.stringify(comments));\
-        commentInput.value = "";\
-        loadComments();\
-    \}\
-\}\
-\
-// Supprimer un commentaire\
-function deleteComment(index) \{\
-    const comments = JSON.parse(localStorage.getItem("comments")) || [];\
-    comments.splice(index, 1);\
-    localStorage.setItem("comments", JSON.stringify(comments));\
-    loadComments();\
-\}\
-\
-// Charger les commentaires au chargement de la page\
-window.onload = loadComments;\
-}
+    // Crée un nouvel élément de commentaire
+    const commentItem = document.createElement("li");
+    commentItem.classList.add("comment-item");
+    commentItem.textContent = commentInput.value;
+
+    // Crée un bouton de suppression pour le commentaire
+    const deleteButton = document.createElement("button");
+    deleteButton.textContent = "Delete";
+    deleteButton.classList.add("delete-button");
+    deleteButton.onclick = function() {
+        commentsList.removeChild(commentItem);
+    };
+
+    // Ajoute le bouton de suppression au commentaire
+    commentItem.appendChild(deleteButton);
+
+    // Ajoute le commentaire à la liste des commentaires
+    commentsList
